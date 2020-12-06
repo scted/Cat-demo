@@ -1,0 +1,178 @@
+Running simulation for "no_slicing" ... appears to work
+
+ins: 0 outs: 0
+ins: 1 outs: 1
+ins: 2 outs: 2
+ins: 3 outs: 3
+ins: 4 outs: 0
+ins: 5 outs: 1
+ins: 6 outs: 2
+ins: 7 outs: 3
+
+Running simulation for "lhs" ... appears to work
+
+ins: 0 outs: 0
+ins: 1 outs: 1
+ins: 2 outs: 2
+ins: 3 outs: 3
+ins: 4 outs: 0
+ins: 5 outs: 1
+ins: 6 outs: 2
+ins: 7 outs: 3
+
+Running simulation for "rhs" ... appears to work
+
+ins: 0 outs: 0
+ins: 1 outs: 1
+ins: 2 outs: 2
+ins: 3 outs: 3
+ins: 4 outs: 0
+ins: 5 outs: 1
+ins: 6 outs: 2
+ins: 7 outs: 3
+
+Running simulation for "use_signals" ... appears to work
+
+ins: 0 outs: 0
+ins: 1 outs: 1
+ins: 2 outs: 2
+ins: 3 outs: 3
+ins: 4 outs: 0
+ins: 5 outs: 1
+ins: 6 outs: 2
+ins: 7 outs: 3
+
+Writing verilog for "no_slicing" ... matches simulation
+
+/* Machine-generated using Migen */
+module top(
+
+);
+
+reg [1:0] ins = 2'd0;
+wire [1:0] outs;
+wire s0;
+wire s1;
+
+// synthesis translate_off
+reg dummy_s;
+initial dummy_s <= 1'd0;
+// synthesis translate_on
+
+assign {s1, s0} = ins;
+assign outs = {s1, s0};
+
+endmodule
+
+
+
+Writing verilog for "lhs" ... something gets mangled and only the MSB is connected
+
+/* Machine-generated using Migen */
+module top(
+
+);
+
+reg [1:0] ins = 2'd0;
+wire [1:0] outs;
+reg s0;
+reg s1;
+wire [1:0] slice_proxy0;
+wire [1:0] slice_proxy1;
+
+// synthesis translate_off
+reg dummy_s;
+initial dummy_s <= 1'd0;
+// synthesis translate_on
+
+assign slice_proxy0[0] = ins[0];
+assign slice_proxy1[1] = ins[1];
+assign outs = {s1, s0};
+
+// synthesis translate_off
+reg dummy_d;
+// synthesis translate_on
+always @(*) begin
+	s0 <= 1'd0;
+	s1 <= 1'd0;
+	{s1, s0} <= slice_proxy0;
+	{s1, s0} <= slice_proxy1;
+// synthesis translate_off
+	dummy_d <= dummy_s;
+// synthesis translate_on
+end
+
+endmodule
+
+
+
+Writing verilog for "rhs" ... something gets mangled and only the MSB is connected
+
+/* Machine-generated using Migen */
+module top(
+
+);
+
+reg [1:0] ins = 2'd0;
+reg [1:0] outs;
+wire s0;
+wire s1;
+wire [1:0] slice_proxy0;
+wire [1:0] slice_proxy1;
+
+// synthesis translate_off
+reg dummy_s;
+initial dummy_s <= 1'd0;
+// synthesis translate_on
+
+assign {s1, s0} = ins;
+
+// synthesis translate_off
+reg dummy_d;
+// synthesis translate_on
+always @(*) begin
+	outs <= 2'd0;
+	outs[0] <= slice_proxy0[0];
+	outs[1] <= slice_proxy1[1];
+// synthesis translate_off
+	dummy_d <= dummy_s;
+// synthesis translate_on
+end
+assign slice_proxy0 = {s1, s0};
+assign slice_proxy1 = {s1, s0};
+
+endmodule
+
+
+
+Writing verilog for "use_signals" ... matches simulation
+
+/* Machine-generated using Migen */
+module top(
+
+);
+
+reg [1:0] ins = 2'd0;
+reg [1:0] outs;
+wire s0;
+wire s1;
+
+// synthesis translate_off
+reg dummy_s;
+initial dummy_s <= 1'd0;
+// synthesis translate_on
+
+assign s0 = ins[0];
+assign s1 = ins[1];
+
+// synthesis translate_off
+reg dummy_d;
+// synthesis translate_on
+always @(*) begin
+	outs <= 2'd0;
+	outs[0] <= s0;
+	outs[1] <= s1;
+// synthesis translate_off
+	dummy_d <= dummy_s;
+// synthesis translate_on
+end
